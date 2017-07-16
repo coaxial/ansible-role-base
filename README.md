@@ -15,7 +15,11 @@ Ansible.
 Role Variables
 --------------
 
-TBD
+Variable name | Default value | Purpose
+--- | --- | ---
+`base__operator_username` | `user` | username for the account that will be used to log into the server etc.
+`base__provisioning_username` | `ansible` | username for the account that ansible will use
+`base__ssh_pubkey_path` | `~/.ssh/id_rsa.pub` | path to the public key to be inserted into `authorized_keys` for both users
 
 Dependencies
 ------------
