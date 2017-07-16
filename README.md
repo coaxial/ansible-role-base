@@ -25,7 +25,13 @@ TBD
 Example Playbook
 ----------------
 
-TBD
+```yaml
+---
+- hosts: all
+  become: true
+  roles:
+    - ansible-role-base
+```
 
 License
 -------

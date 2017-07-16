@@ -1,13 +1,22 @@
 ---
-- name: Disable users' passwords
+- name: Add public keys
+  authorized_key:
+    user: "{{ item }}"
+    state: present
+    key: "{{ lookup('file', base__ssh_pubkey_path) }}"
+  with_items:
+    - "{{ base__provisioning_username }}"
+    - "{{ base__operator_username }}"
+
+- name: Create users and disable passwords
   user:
-    - name: "{{ item }}"
-    - password: "!!"
-    - state: present
+    name: "{{ item }}"
+    password: "!!"
+    state: present
   with_items:
     - root
-    - user
-    - ansible
+    - "{{ base__provisioning_username }}"
+    - "{{ base__operator_username }}"
 
 - name: Enable passwordless sudo
   lineinfile:
@@ -16,6 +25,6 @@
     regexp: '^{{ item }}\s'
     line: '{{ item }} ALL=(ALL) NOPASSWD: ALL'
     validate: 'visudo -cf %s'
-    with_items:
-      - user
-      - ansible
+  with_items:
+    - "{{ base__provisioning_username }}"
+    - "{{ base__operator_username }}"
