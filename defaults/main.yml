@@ -1,3 +1,4 @@
 ---
 base__provisioning_username: 'ansible'
 base__operator_username: 'user'
+base__ssh_pubkey_path: '~/.ssh/id_rsa.pub'
