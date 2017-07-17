@@ -49,3 +49,12 @@
       line: 'AllowUsers {{ base__provisioning_username }} {{ base__operator_username }}'
   notify:
     - restart sshd
+
+- name: Close all ports
+  ufw:
+    state: enabled
+    policy: reject # nevertheless, we are polite about it
+    rule: allow
+    name: OpenSSH
+  notify:
+    - restart ufw
