@@ -33,6 +33,8 @@
   package:
     name: fail2ban
     state: latest
+  notify:
+    - restart fail2ban
 
 - name: Lock down SSH
   lineinfile:
