@@ -1,5 +1,7 @@
 ---
 - hosts: localhost
   remote_user: root
+  vars:
+    base__ssh_pubkey_path: './test.pub'
   roles:
     - role_under_test
