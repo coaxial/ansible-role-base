@@ -78,3 +78,10 @@
       dest: /etc/apt/apt.conf.d/20auto-upgrades
     - src: files/50unattended-upgrades
       dest: /etc/apt/apt.conf.d/50unattended-upgrades
+
+- name: Update timezone
+  template:
+    src: files/timezone.j2
+    dest: /etc/timezone
+  notify:
+    - update timezone
