@@ -1,0 +1,24 @@
+---
+- name: Install tzdata
+  package:
+    name: tzdata
+    state: latest
+
+- name: Update timezone
+  template:
+    src: files/timezone.j2
+    dest: /etc/timezone
+  notify:
+    - update timezone
+
+- name: Install ntpd
+  package:
+    name: ntp
+    state: latest
+
+- name: Configure ntpd
+  copy:
+    src: files/ntp.conf
+    dest: /etc/ntp.conf
+  notify:
+    - restart ntpd
