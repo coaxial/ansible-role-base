@@ -3,16 +3,19 @@
   service:
     name: fail2ban
     state: restarted
+    enabled: yes
 
 - name: restart sshd
   service:
     name: sshd
     state: restarted
+    enabled: yes
 
 - name: restart ufw
   service:
     name: ufw
     state: restarted
+    enabled: yes
 
 - name: update timezone
   command: 'dpkg-reconfigure --frontend noninteractive tzdata'
@@ -21,3 +24,4 @@
   service:
     name: ntp
     state: restarted
+    enabled: yes
