@@ -88,6 +88,11 @@
     - src: files/50unattended-upgrades
       dest: /etc/apt/apt.conf.d/50unattended-upgrades
 
+- name: Install tzdata
+  package:
+    name: tzdata
+    state: latest
+
 - name: Update timezone
   template:
     src: files/timezone.j2
