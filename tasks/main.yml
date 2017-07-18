@@ -29,6 +29,10 @@
     - "{{ base__provisioning_username }}"
     - "{{ base__operator_username }}"
 
+- name: Update apt cache
+  apt:
+    update_cache: true
+
 - name: Install fail2ban
   package:
     name: fail2ban
