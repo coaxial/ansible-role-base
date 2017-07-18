@@ -40,6 +40,11 @@
   notify:
     - restart fail2ban
 
+- name: Install sshd
+  package:
+    name: openssh-server
+    state: latest
+
 - name: Lock down SSH
   lineinfile:
     path: /etc/ssh/sshd_config
