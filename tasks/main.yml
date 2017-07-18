@@ -28,3 +28,92 @@
   with_items:
     - "{{ base__provisioning_username }}"
     - "{{ base__operator_username }}"
+
+- name: Refresh apt cache
+  apt:
+    update_cache: true
+    cache_valid_time: 216000 # seconds; i.e. 1 day
+
+- name: Install fail2ban
+  package:
+    name: fail2ban
+    state: latest
+  notify:
+    - restart fail2ban
+
+- name: Install sshd
+  package:
+    name: openssh-server
+    state: latest
+
+- name: Lock down SSH
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    state: present
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - regexp: '^PermitRootLogin'
+      line: 'PermitRootLogin no'
+    - regexp: '^PasswordAuthentication'
+      line: 'PasswordAuthentication no'
+    - regexp: '^AllowUsers'
+      line: 'AllowUsers {{ base__provisioning_username }} {{ base__operator_username }}'
+  notify:
+    - restart sshd
+
+- name: Install firewall
+  package:
+    name: ufw
+    state: latest
+
+- name: Close all ports
+  ufw:
+    state: enabled
+    policy: reject # nevertheless, we are polite about it
+    rule: allow
+    name: OpenSSH
+  notify:
+    - restart ufw
+
+- name: Install automatic upgrades packages
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - unattended-upgrades
+    - update-notifier-common
+
+- name: Enable automatic updates
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - src: files/20auto-upgrades
+      dest: /etc/apt/apt.conf.d/20auto-upgrades
+    - src: files/50unattended-upgrades
+      dest: /etc/apt/apt.conf.d/50unattended-upgrades
+
+- name: Install tzdata
+  package:
+    name: tzdata
+    state: latest
+
+- name: Update timezone
+  template:
+    src: files/timezone.j2
+    dest: /etc/timezone
+  notify:
+    - update timezone
+
+- name: Install ntpd
+  package:
+    name: ntp
+    state: latest
+
+- name: Configure ntpd
+  copy:
+    src: files/ntp.conf
+    dest: /etc/ntp.conf
+  notify:
+    - restart ntpd

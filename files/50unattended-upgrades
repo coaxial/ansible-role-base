@@ -1,0 +1,10 @@
+Unattended-Upgrade::Allowed-Origins {
+        "${distro_id}:${distro_codename}";
+        "${distro_id}:${distro_codename}-security";
+        // Extended Security Maintenance (not always available for ever distro)
+        // cf https://insights.ubuntu.com/2017/04/11/faqs-ensuring-the-ongoing-security-compliance-of-ubuntu/
+        "${distro_id}ESM:${distro_codename}";
+};
+
+Unattended-Upgrade::Remove-Unused-Dependencies "true";
+Unattended-Upgrade::Automatic-Reboot "true";
