@@ -25,12 +25,3 @@
     name: ntp
     state: restarted
     enabled: yes
-
-- name: close all ports
-  ufw:
-    state: enabled
-    policy: reject # nevertheless, we are polite about it
-    rule: allow
-    name: OpenSSH
-  notify:
-    - restart ufw
