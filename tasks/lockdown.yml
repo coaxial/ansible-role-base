@@ -31,12 +31,5 @@
   package:
     name: ufw
     state: latest
-
-- name: Close all ports
-  ufw:
-    state: enabled
-    policy: reject # nevertheless, we are polite about it
-    rule: allow
-    name: OpenSSH
   notify:
-    - restart ufw
+    - close all ports
