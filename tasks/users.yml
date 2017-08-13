@@ -12,19 +12,16 @@
 
 - name: Create users and disable passwords
   user:
-    name: "{{ item }}"
-    password: "!!"
+    name: "{{ item.username }}"
+    password: "{{ item.password }}"
     state: present
   with_items:
-    - root
-    - "{{ base__provisioning_username }}"
-    - "{{ base__operator_username }}"
-
-- name: Set a password for operator account
-  user:
-    name: "{{ base__operator_username }}"
-    password:
-    state: present
+    - username: root
+      password: "!!"
+    - username: "{{ base__provisioning_username }}"
+      password: "!!"
+    - username: "{{ base__operator_username }}"
+      password: "{{ base__operator_password }}"
 
 - name: Add public keys
   authorized_key:
