@@ -17,9 +17,10 @@ Role Variables
 
 Variable name | Default value | Purpose
 --- | --- | ---
-`base__operator_username` | `user` | username for the account that will be used to log into the server etc.
-`base__operator_password` | `changeme` | password for the operator account. **Not secure by default, override it!**
-`base__provisioning_username` | `ansible` | username for the account that ansible will use
+`base__operator_user.username` | `user` | username for the account that will be used to log into the server etc.
+`base__operator_user.password` | `changeme` | password for the operator account. **Not secure by default, override it!**
+`base__operator_user.shell` | `/bin/bash` | shell to use instead of `sh`
+`base__provisioning_user.username` | `ansible` | username for the account that ansible will use
 `base__ssh_pubkey_path` | `~/.ssh/id_rsa.pub` | path to the public key to be inserted into `authorized_keys` for both users
 `base__timezone` | `America/Toronto` | the timezone to be used on the machine
 
@@ -44,7 +45,12 @@ Example Playbook
 
 `myvars.yml`:
 ```yaml
-base__operator_password: 'my_$ecure_password!' # Generate with `mkpasswd --method=sha-512`, and encrypt with vault
+# Note that the whole dict has to be redefined, because this will overwrite the
+# default one, and missing keys won't fall through
+base__operator_user:
+  username: 'user'
+  password: 'my_$ecure_password!' # Generate with `mkpasswd --method=sha-512`, and encrypt with vault
+  shell: '/bin/bash'
 ```
 
 > Note: If the target system requires a password for SSH and/or sudo, run the
