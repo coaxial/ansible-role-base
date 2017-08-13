@@ -47,6 +47,9 @@ Example Playbook
 base__operator_password: 'my_$ecure_password!'
 ```
 
+> Note: If the target system requires a password for SSH and/or sudo, run the
+> playbook with both the `-k` and `-K` options.
+
 License
 -------
 
