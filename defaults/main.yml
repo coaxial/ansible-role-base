@@ -1,5 +1,6 @@
 ---
 base__provisioning_username: 'ansible'
 base__operator_username: 'user'
+base__operator_password: '$6$.HUM4rnqj6Vi4js$YnMd/3nDQ/RLbp7bVDCbZHlo4qpvbk0RWS9nJqHjwVq1xNFJJBnhZc1gfCtukpR0yDrdPSrs52gJaYIm6Omgo1'
 base__ssh_pubkey_path: '~/.ssh/id_rsa.pub'
 base__timezone: 'America/Toronto' # list at https://www.vmware.com/support/developer/vc-sdk/visdk400pubs/ReferenceGuide/timezone.html
