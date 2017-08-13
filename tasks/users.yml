@@ -1,23 +1,4 @@
 ---
-- name: Create users and disable passwords
-  user:
-    name: "{{ item }}"
-    password: "!!"
-    state: present
-  with_items:
-    - root
-    - "{{ base__provisioning_username }}"
-    - "{{ base__operator_username }}"
-
-- name: Add public keys
-  authorized_key:
-    user: "{{ item }}"
-    state: present
-    key: "{{ lookup('file', base__ssh_pubkey_path) }}"
-  with_items:
-    - "{{ base__provisioning_username }}"
-    - "{{ base__operator_username }}"
-
 - name: Enable passwordless sudo
   lineinfile:
     path: /etc/sudoers
@@ -28,3 +9,29 @@
   with_items:
     - "{{ base__provisioning_username }}"
     - "{{ base__operator_username }}"
+
+- name: Create users and disable passwords
+  user:
+    name: "{{ item }}"
+    password: "!!"
+    state: present
+  with_items:
+    - root
+    - "{{ base__provisioning_username }}"
+    - "{{ base__operator_username }}"
+
+- name: Set a password for operator account
+  user:
+    name: "{{ base__operator_username }}"
+    password:
+    state: present
+
+- name: Add public keys
+  authorized_key:
+    user: "{{ item }}"
+    state: present
+    key: "{{ lookup('file', base__ssh_pubkey_path) }}"
+  with_items:
+    - "{{ base__provisioning_username }}"
+    - "{{ base__operator_username }}"
+
