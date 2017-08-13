@@ -38,13 +38,13 @@ Example Playbook
   become: true
   roles:
     - ansible-role-base
-  include:
+  vars_files:
     - myvars.yml # to override the default **insecure** operator password
 ```
 
 `myvars.yml`:
 ```yaml
-base__operator_password: 'my_$ecure_password!'
+base__operator_password: 'my_$ecure_password!' # Generate with `mkpasswd --method=sha-512`, and encrypt with vault
 ```
 
 > Note: If the target system requires a password for SSH and/or sudo, run the
