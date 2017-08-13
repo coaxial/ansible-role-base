@@ -7,23 +7,19 @@
     line: '{{ item }} ALL=(ALL) NOPASSWD: ALL'
     validate: 'visudo -cf %s'
   with_items:
-    - "{{ base__provisioning_username }}"
-    - "{{ base__operator_username }}"
+    - "{{ base__provisioning_user.username }}"
+    - "{{ base__operator_user.username }}"
 
 - name: Create users and disable passwords
   user:
     name: "{{ item.username }}"
-    password: "{{ item.password }}"
+    password: "{{ item.password | default('!!') }}"
     shell: "{{ item.shell | default('') }}"
     state: present
   with_items:
     - username: root
-      password: "!!"
-    - username: "{{ base__provisioning_username }}"
-      password: "!!"
-    - username: "{{ base__operator_username }}"
-      password: "{{ base__operator_password }}"
-      shell: '/bin/bash'
+    - "{{ base__operator_user }}"
+    - "{{ base__provisioning_user }}"
 
 - name: Add public keys
   authorized_key:
@@ -31,6 +27,6 @@
     state: present
     key: "{{ lookup('file', base__ssh_pubkey_path) }}"
   with_items:
-    - "{{ base__provisioning_username }}"
-    - "{{ base__operator_username }}"
+    - "{{ base__provisioning_user.username }}"
+    - "{{ base__operator_user.username }}"
 

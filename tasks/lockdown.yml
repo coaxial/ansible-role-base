@@ -23,7 +23,7 @@
     - regexp: '^PasswordAuthentication'
       line: 'PasswordAuthentication no'
     - regexp: '^AllowUsers'
-      line: 'AllowUsers {{ base__provisioning_username }} {{ base__operator_username }}'
+      line: 'AllowUsers {{ base__provisioning_user.username }} {{ base__operator_user.username }}'
   notify:
     - restart sshd
 
