@@ -2,14 +2,14 @@
 - name: Install fail2ban
   package:
     name: fail2ban
-    state: latest
+    state: present
   notify:
     - restart fail2ban
 
 - name: Install sshd
   package:
     name: openssh-server
-    state: latest
+    state: present
 
 - name: Lock down SSH
   lineinfile:
@@ -30,7 +30,7 @@
 - name: Install firewall
   package:
     name: ufw
-    state: latest
+    state: present
 
 - name: Close all ports
   ufw:

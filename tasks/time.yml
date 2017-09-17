@@ -2,7 +2,7 @@
 - name: Install tzdata
   package:
     name: tzdata
-    state: latest
+    state: present
 
 - name: Update timezone
   template:
@@ -14,7 +14,7 @@
 - name: Install ntpd
   package:
     name: ntp
-    state: latest
+    state: present
 
 - name: Configure ntpd
   copy:

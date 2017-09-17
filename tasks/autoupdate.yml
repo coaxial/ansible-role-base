@@ -2,7 +2,7 @@
 - name: Install automatic upgrades packages
   package:
     name: "{{ item }}"
-    state: latest
+    state: present
   with_items:
     - unattended-upgrades
     - update-notifier-common
