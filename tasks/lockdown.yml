@@ -36,7 +36,15 @@
   ufw:
     state: enabled
     policy: reject # nevertheless, we are polite about it
+  notify:
+    - restart ufw
+
+- name: Allow ssh and mosh
+  ufw:
     rule: allow
-    name: OpenSSH
+    app: "{{ item }}"
+  with_items:
+      - OpenSSH
+      - mosh
   notify:
     - restart ufw
