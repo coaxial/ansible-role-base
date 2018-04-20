@@ -5,6 +5,7 @@
     cache_valid_time: 216000 # seconds; i.e. 1 day
 
 - include: users.yml
+- include: extras.yml
 - include: lockdown.yml
 - include: autoupdate.yml
 - include: time.yml

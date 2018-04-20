@@ -1,0 +1,7 @@
+---
+- name: Install extra packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - mosh
