@@ -1,6 +1,8 @@
 Unattended-Upgrade::Allowed-Origins {
         "${distro_id}:${distro_codename}";
+        "${distro_id}:${distro_codename}-backports";
         "${distro_id}:${distro_codename}-security";
+        "${distro_id}:${distro_codename}-updates";
         // Extended Security Maintenance (not always available for ever distro)
         // cf https://insights.ubuntu.com/2017/04/11/faqs-ensuring-the-ongoing-security-compliance-of-ubuntu/
         "${distro_id}ESM:${distro_codename}";
