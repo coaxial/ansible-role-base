@@ -20,6 +20,7 @@
     - username: root
     - username: "{{ base__operator_username }}"
       password: "{{ base__operator_password }}"
+      shell: "{{ base__operator_shell }}"
     - username: "{{ base__provisioning_username }}"
 
 - name: Add public keys
