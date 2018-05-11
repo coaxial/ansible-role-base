@@ -18,7 +18,7 @@ Role Variables
 Variable name | Default value | Purpose
 --- | --- | ---
 `base__operator_username` | `user` | username for the account that will be used to log into the server etc.
-`base__operator_password` | `changeme` | password for the operator account. **Not secure by default, override it!**
+`base__operator_password` | none, must be set | password for the operator account. cf. to generate https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module
 `base__operator_shell` | `/bin/bash` | shell to use instead of `sh`
 `base__provisioning_username` | `ansible` | username for the account that ansible will use
 `base__ssh_pubkey_path` | `~/.ssh/id_rsa.pub` | path to the public key to be inserted into `authorized_keys` for both users
