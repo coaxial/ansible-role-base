@@ -22,7 +22,7 @@ Variable name | Default value | Purpose
 `base__operator_shell` | `/bin/bash` | shell to use instead of `sh`
 `base__provisioning_username` | `ansible` | username for the account that ansible will use
 `base__ssh_pubkey_path` | `~/.ssh/id_rsa.pub` | path to the public key to be inserted into `authorized_keys` for both users
-`base__timezone` | `America/Toronto` | the timezone to be used on the machine
+`base__timezone` | `Etc/UTC` | the timezone to be used on the machine
 
 Dependencies
 ------------
