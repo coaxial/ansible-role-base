@@ -1,5 +1,6 @@
 Base role
 =========
+[![Build Status](https://travis-ci.org/coaxial/ansible-role-base.svg?branch=master)](https://travis-ci.org/coaxial/ansible-role-base)
 
 This is the Ansible role I use to configure any machine. All these settings are
 opinionated. You might do things differently, so read through the role to see
