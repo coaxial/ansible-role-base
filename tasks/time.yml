@@ -5,11 +5,8 @@
     state: present
 
 - name: Update timezone
-  template:
-    src: files/timezone.j2
-    dest: /etc/timezone
-  notify:
-    - update timezone
+  timezone:
+    name: "{{ base__timezone }}"
 
 - name: Install ntpd
   package:
