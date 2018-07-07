@@ -17,9 +17,6 @@
     state: restarted
     enabled: yes
 
-- name: update timezone
-  command: 'dpkg-reconfigure --frontend noninteractive tzdata'
-
 - name: restart ntpd
   service:
     name: ntp
