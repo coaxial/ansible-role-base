@@ -31,4 +31,3 @@
   with_items:
     - "{{ base__provisioning_username }}"
     - "{{ base__operator_username }}"
-
