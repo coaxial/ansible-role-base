@@ -1,4 +1,7 @@
 ---
+- name: Persist iptables
+  command: dpkg-reconfigure iptables-persistent
+
 - name: restart fail2ban
   service:
     name: fail2ban

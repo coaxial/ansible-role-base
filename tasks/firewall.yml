@@ -1,0 +1,17 @@
+---
+- name: Ensure iptables is present
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - iptables
+    - iptables-persistent
+
+- name: Set default policy to DROP
+  iptables:
+    chain: "{{ item }}"
+    policy: DROP
+  with_items:
+    - INPUT
+    - FORWARD
+    - OUTPUT
