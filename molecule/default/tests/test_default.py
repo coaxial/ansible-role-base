@@ -16,3 +16,11 @@ def test_firewall_rules(host):
         '-A INPUT -p tcp -m tcp --dport 22 -m '
         'comment --comment "Allow SSH traffic" -j ACCEPT'
     ) in i.rules('filter', 'INPUT')
+
+
+def test_firewall_rules_persist(host):
+    r4 = host.file('/etc/iptables/rules.v4')
+    r6 = host.file('/etc/iptables/rules.v6')
+
+    assert r4.exists
+    assert r6.exists
