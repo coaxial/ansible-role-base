@@ -1,8 +1,0 @@
----
-- hosts: localhost
-  remote_user: root
-  vars:
-    base__ssh_pubkey_path: './test.pub'
-    base__operator_password: '$6$APTYkWEXtLV/Zq6u$VFNb7lxaXrM0O0yHL6UFmzwpqRsjkz7nsdNfVJ9lFahjAae19nF8plmJyW5jmDp9PuVOt9X6wBprdSU.204b30'
-  roles:
-    - role_under_test
