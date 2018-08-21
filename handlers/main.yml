@@ -1,6 +1,11 @@
 ---
-- name: Persist iptables
-  command: dpkg-reconfigure iptables-persistent
+- name: Save iptables v4 rules
+  shell: iptables-save > /etc/iptables/rules.v4
+  listen: Persist iptables rules
+
+- name: Save iptables v6 rules
+  shell: ip6tables-save > /etc/iptables/rules.v6
+  listen: Persist iptables rules
 
 - name: restart fail2ban
   service:
