@@ -35,7 +35,7 @@
 - name: Close all ports
   ufw:
     state: enabled
-    policy: reject # nevertheless, we are polite about it
+    policy: reject  # nevertheless, we are polite about it
   notify:
     - restart ufw
 
@@ -44,7 +44,7 @@
     rule: allow
     app: "{{ item }}"
   with_items:
-      - OpenSSH
-      - mosh
+    - OpenSSH
+    - mosh
   notify:
     - restart ufw

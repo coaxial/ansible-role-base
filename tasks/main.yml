@@ -2,7 +2,7 @@
 - name: Refresh apt cache
   apt:
     update_cache: true
-    cache_valid_time: 216000 # seconds; i.e. 1 day
+    cache_valid_time: 216000  # seconds; i.e. 1 day
 
 - include: users.yml
 - include: extras.yml

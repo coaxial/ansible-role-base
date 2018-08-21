@@ -1,15 +1,16 @@
+---
 galaxy_info:
-  author: coaxial
-  description: Base configuration for any Ubuntu box
+  author: Coaxial
+  description: Opinionated base config for servers.
   company: 64b.it
-  license: CC-BY
-  min_ansible_version: 1.2
-  github_branch: master
+  role_name: base
+  license: MIT
+  min_ansible_version: 2.5
   platforms:
-    - name: Ubuntu
+    - name: ubuntu
       versions:
-        - xenial
+        - bionic
+  galaxy_tags:
+    - system
 
-  galaxy_tags: []
-
-dependencies: []
+  dependencies: []

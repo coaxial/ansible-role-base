@@ -3,4 +3,4 @@ base__provisioning_username: 'ansible'
 base__operator_username: 'user'
 base__operator_shell: '/bin/bash'
 base__ssh_pubkey_path: '~/.ssh/id_rsa.pub'
-base__timezone: 'Etc/UTC' # list at https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+base__timezone: 'Etc/UTC'  # list at https://en.wikipedia.org/wiki/List_of_tz_database_time_zones

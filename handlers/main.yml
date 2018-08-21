@@ -3,22 +3,22 @@
   service:
     name: fail2ban
     state: restarted
-    enabled: yes
+    enabled: true
 
 - name: restart sshd
   service:
     name: sshd
     state: restarted
-    enabled: yes
+    enabled: true
 
 - name: restart ufw
   service:
     name: ufw
     state: restarted
-    enabled: yes
+    enabled: true
 
 - name: restart ntpd
   service:
     name: ntp
     state: restarted
-    enabled: yes
+    enabled: true
