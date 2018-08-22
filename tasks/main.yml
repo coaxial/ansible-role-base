@@ -5,3 +5,4 @@
     cache_valid_time: 216000  # seconds; i.e. 1 day
 
 - include: firewall.yml
+- include: sshd.yml

@@ -9,23 +9,30 @@
 
 - name: Set default policy to DROP
   iptables:
-    chain: "{{ item }}"
-    policy: DROP
+    chain: "{{ item.chain }}"
+    policy: "{{ item.policy }}"
   with_items:
-    - INPUT
-    - FORWARD
-    - OUTPUT
+    - chain: INPUT
+      policy: DROP
+    - chain: FORWARD
+      policy: DROP
+    - chain: OUTPUT
+      policy: ACCEPT
+  notify: Persist iptables rules
+
+- name: Allow localhost traffic
+  iptables:
+    chain: INPUT
+    in_interface: lo
+    jump: ACCEPT
+    comment: Allow loopback traffic
   notify: Persist iptables rules
 
 - name: Allow SSH
   iptables:
     chain: INPUT
     protocol: tcp
-    destination_port: 22
+    destination_port: ssh
     jump: ACCEPT
-    ip_version: "{{ item }}"
     comment: Allow SSH traffic
-  with_items:
-    - ipv4
-    - ipv6
   notify: Persist iptables rules

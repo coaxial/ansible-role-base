@@ -11,7 +11,11 @@ def test_firewall_rules(host):
 
     assert '-P INPUT DROP' in i.rules('filter', 'INPUT')
     assert '-P FORWARD DROP' in i.rules('filter', 'FORWARD')
-    assert '-P OUTPUT DROP' in i.rules('filter', 'OUTPUT')
+    assert '-P OUTPUT ACCEPT' in i.rules('filter', 'OUTPUT')
+    assert (
+        '-A INPUT -i lo -m '
+        'comment --comment "Allow loopback traffic" -j ACCEPT'
+    ) in i.rules('filter', 'INPUT')
     assert (
         '-A INPUT -p tcp -m tcp --dport 22 -m '
         'comment --comment "Allow SSH traffic" -j ACCEPT'
@@ -24,3 +28,21 @@ def test_firewall_rules_persist(host):
 
     assert r4.exists
     assert r6.exists
+
+
+def test_sshd(host):
+    s = host.service('sshd')
+
+    assert s.is_running
+    assert s.is_enabled
+
+
+def test_sshd_config(host):
+    f = host.file('/etc/ssh/sshd_config')
+
+    assert f.user == 'root'
+    assert f.group == 'root'
+    assert f.mode == 0o644
+    assert 'PermitRootLogin no' in f.content_string
+    assert 'PasswordAuthentication no' in f.content_string
+    assert 'AllowUsers ansible user' in f.content_string
