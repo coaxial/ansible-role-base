@@ -74,3 +74,32 @@ def test_ssh_key(host):
 
     assert o.contains(k)
     assert p.contains(k)
+
+
+def test_unattended_upgrades(host):
+    a = host.file('/etc/apt/apt.conf.d/20auto-upgrades')
+    u = host.file('/etc/apt/apt.conf.d/50unattended-upgrades')
+
+    for f in [a, u]:
+        assert f.exists
+        assert f.user == 'root'
+        assert f.group == 'root'
+        assert f.mode == 0o644
+
+    assert a.contains("""
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Download-Upgradeable-Packages "1";
+APT::Periodic::AutocleanInterval "7";
+APT::Periodic::Unattended-Upgrade "1";
+""")
+    assert u.contains("""
+Unattended-Upgrade::Allowed-Origins {
+        "${distro_id}:${distro_codename}";
+        "${distro_id}:${distro_codename}-backports";
+        "${distro_id}:${distro_codename}-security";
+        "${distro_id}:${distro_codename}-updates";
+};
+
+Unattended-Upgrade::Remove-Unused-Dependencies "true";
+Unattended-Upgrade::Automatic-Reboot "true";
+""")
