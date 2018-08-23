@@ -36,3 +36,13 @@
     jump: ACCEPT
     comment: Allow SSH traffic
   notify: Persist iptables rules
+
+- name: Allow return traffic
+  iptables:
+    chain: INPUT
+    ctstate:
+      - RELATED
+      - ESTABLISHED
+    jump: ACCEPT
+    comment: Allow return traffic
+  notify: Persist iptables rules
