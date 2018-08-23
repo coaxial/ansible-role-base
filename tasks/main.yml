@@ -6,3 +6,4 @@
 
 - include: firewall.yml
 - include: sshd.yml
+- include: users.yml

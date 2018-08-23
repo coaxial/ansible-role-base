@@ -46,3 +46,31 @@ def test_sshd_config(host):
     assert 'PermitRootLogin no' in f.content_string
     assert 'PasswordAuthentication no' in f.content_string
     assert 'AllowUsers ansible user' in f.content_string
+
+
+def test_sudo(host):
+    f = host.file('/etc/sudoers')
+
+    assert f.contains('ansible ALL=(ALL) NOPASSWD:ALL')
+    assert f.contains('user ALL=(ALL) NOPASSWD:ALL')
+
+
+def test_users(host):
+    o = host.user('user')
+    p = host.user('ansible')
+
+    assert o.name == 'user'
+    assert o.shell == '/bin/bash'
+    assert o.password == '!!'
+    assert p.name == 'ansible'
+    assert p.shell == '/bin/bash'
+    assert p.password == '!!'
+
+
+def test_ssh_key(host):
+    o = host.file('/home/user/.ssh/authorized_keys')
+    p = host.file('/home/ansible/.ssh/authorized_keys')
+    k = 'dummy_test_key'
+
+    assert o.contains(k)
+    assert p.contains(k)
