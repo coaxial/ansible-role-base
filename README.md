@@ -1,6 +1,6 @@
 base
 =========
-  [![Build Status](https://travis-ci.org/coaxial/..svg?branch=master)](https://travis-ci.org/coaxial/.)
+  [![Build Status](https://travis-ci.org/coaxial/ansible-role-base.svg?branch=master)](https://travis-ci.org/coaxial/ansible-role-base)
 
 Opinionated base config for servers.
 
