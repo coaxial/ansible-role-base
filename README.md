@@ -24,8 +24,6 @@ Example Playbook
 ```yaml
 - hosts: all
   become: true
-  vars:
-    base__operator_password: 'hunter2'
   tasks:
     - name: Apply base configuration
       include_role:
