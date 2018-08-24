@@ -16,6 +16,8 @@ Name | Default | Possible values | Description
 `base__provisioning_username` | `ansible` | User for Ansible to use.
 `base__ssh_pubkey_path` | `~/.ssh/id_pub.rsa` | Public key to add to `authorized_keys` for both users.
 `base__timezone` | `Etc/UTC` | Timezone for that machine. See [why is UTC the one true TZ for your servers](http://yellerapp.com/posts/2015-01-12-the-worst-server-setup-you-can-make.html)
+`base__ntp_server` | `ntp.ubuntu.com` | NTP server to get time from.
+`base__ntp_server_fallback` | `pool.ntp.org` | Alternative NTP server should the one set above fail.
 
 
 Example Playbook

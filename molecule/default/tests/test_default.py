@@ -103,3 +103,13 @@ Unattended-Upgrade::Allowed-Origins {
 Unattended-Upgrade::Remove-Unused-Dependencies "true";
 Unattended-Upgrade::Automatic-Reboot "true";
 """)
+
+
+def test_timesync(host):
+    f = host.file('/etc/systemd/timesyncd.conf')
+
+    assert f.user == 'root'
+    assert f.group == 'root'
+    assert f.mode == 0o644
+    assert f.contains('NTP=ntp.ubuntu.com')
+    assert f.contains('FallbackNTP=pool.ntp.org')

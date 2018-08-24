@@ -8,3 +8,4 @@
 - include: sshd.yml
 - include: users.yml
 - include: unattended_upgrades.yml
+- include: time.yml
