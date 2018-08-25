@@ -113,3 +113,10 @@ def test_timesync(host):
     assert f.mode == 0o644
     assert f.contains('NTP=ntp.ubuntu.com')
     assert f.contains('FallbackNTP=pool.ntp.org')
+
+
+def test_fail2ban(host):
+    s = host.service('fail2ban')
+
+    assert s.is_running
+    assert s.is_enabled

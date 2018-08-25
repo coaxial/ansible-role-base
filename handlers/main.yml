@@ -7,7 +7,7 @@
   shell: ip6tables-save > /etc/iptables/rules.v6
   listen: Persist iptables rules
 
-- name: restart fail2ban
+- name: Restart fail2ban
   service:
     name: fail2ban
     state: restarted
@@ -16,17 +16,5 @@
 - name: Restart sshd
   service:
     name: sshd
-    state: restarted
-    enabled: true
-
-- name: restart ufw
-  service:
-    name: ufw
-    state: restarted
-    enabled: true
-
-- name: restart ntpd
-  service:
-    name: ntp
     state: restarted
     enabled: true

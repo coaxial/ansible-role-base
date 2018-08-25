@@ -9,3 +9,4 @@
 - include: users.yml
 - include: unattended_upgrades.yml
 - include: time.yml
+- include: fail2ban.yml
