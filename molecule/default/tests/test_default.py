@@ -115,6 +115,12 @@ def test_timesync(host):
     assert f.contains('FallbackNTP=pool.ntp.org')
 
 
+def test_tzdata(host):
+    p = host.package('tzdata')
+
+    assert p.is_installed
+
+
 def test_fail2ban(host):
     s = host.service('fail2ban')
 
