@@ -1,29 +1,19 @@
 ---
-sudo: required
-language: python
-python: "2.7"
-env:
-  - distro: ubuntu1604
-    init: /lib/systemd/systemd
-    run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-
-services:
-  - docker
-
-before_install:
-  - 'docker pull geerlingguy/docker-${distro}-ansible:latest'
-
-script:
-  - container_id=$(mktemp)
-  - 'docker run --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:ro ${run_opts} geerlingguy/docker-${distro}-ansible:latest "${init}" > "${container_id}"'
-  # verify syntax
-  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml --syntax-check'
-  # verify the playbook runs
-  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml'
-  # verify idempotence
-  - idempotence=$(mktemp)
-  - docker exec "$(cat ${container_id})" ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml | tee -a ${idempotence}
-  - "tail ${idempotence} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)"
+jobs:
+  include:
+    - &test
+      stage: test
+      language: python
+      python: "2.7"
+      cache: pip
+      dist: xenial
+      sudo: required
+      install:
+        - .travis/setup.sh
+      script:
+        # the python venv needs to be in the path for molecule to run
+        # https://unix.stackexchange.com/questions/83191/how-to-make-sudo-preserve-path
+        - sudo env "PATH=$PATH" molecule test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

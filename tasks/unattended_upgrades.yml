@@ -1,0 +1,21 @@
+---
+- name: Install unattended-upgrades
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - unattended-upgrades
+    - update-notifier-common
+
+- name: Enable unattended upgrades
+  copy:
+    src: "files/{{ item }}"
+    dest: "/etc/apt/apt.conf.d/{{ item }}"
+    owner: root
+    group: root
+    mode: 0o644
+  with_items:
+    # no hyphen between number and filename because that's how the rest of the
+    # files in /etc/apt/apt.conf.d/ are named
+    - 20auto-upgrades
+    - 50unattended-upgrades

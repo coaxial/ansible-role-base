@@ -1,0 +1,48 @@
+---
+- name: Ensure iptables is present
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - iptables
+    - iptables-persistent
+
+- name: Set default policy to DROP
+  iptables:
+    chain: "{{ item.chain }}"
+    policy: "{{ item.policy }}"
+  with_items:
+    - chain: INPUT
+      policy: DROP
+    - chain: FORWARD
+      policy: DROP
+    - chain: OUTPUT
+      policy: ACCEPT
+  notify: Persist iptables rules
+
+- name: Allow localhost traffic
+  iptables:
+    chain: INPUT
+    in_interface: lo
+    jump: ACCEPT
+    comment: Allow loopback traffic
+  notify: Persist iptables rules
+
+- name: Allow SSH
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: ssh
+    jump: ACCEPT
+    comment: Allow SSH traffic
+  notify: Persist iptables rules
+
+- name: Allow return traffic
+  iptables:
+    chain: INPUT
+    ctstate:
+      - RELATED
+      - ESTABLISHED
+    jump: ACCEPT
+    comment: Allow return traffic
+  notify: Persist iptables rules

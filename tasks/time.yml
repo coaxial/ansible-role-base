@@ -8,14 +8,10 @@
   timezone:
     name: "{{ base__timezone }}"
 
-- name: Install ntpd
-  package:
-    name: ntp
-    state: present
-
-- name: Configure ntpd
-  copy:
-    src: files/ntp.conf
-    dest: /etc/ntp.conf
-  notify:
-    - restart ntpd
+- name: Configure network time servers
+  template:
+    src: templates/timesyncd.conf.j2
+    dest: /etc/systemd/timesyncd.conf
+    owner: root
+    group: root
+    mode: 0o644
