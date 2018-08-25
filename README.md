@@ -9,7 +9,6 @@ Role Variables
 
 Name | Default | Possible values | Description
 ---|---|---|---
-`example_variable` | `true` | `true` or `false` | This is an example to populate the table.
 `base__operator_username` | `user` | Any valid username | Administrative account username.
 `base__operator_password` | `'!!'` (i.e. no password) | Operator account password, see [instructions to generate](https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module) or use `mkpasswd --method=sha-512`.
 `base__operator_shell` | `/bin/bash` | Defines the default shell for the operator.
