@@ -1,6 +1,7 @@
 #!/bin/sh
 sudo apt-get update
-sudo apt-get install -y lxd lxd-client
+# xenial ships LXD 2 LTS, backports ships 3 LTS
+sudo apt-get upgrade -t xenial-backports -y lxd lxd-client
 
 sudo lxd --version
 # Wait for the socket to be ready
