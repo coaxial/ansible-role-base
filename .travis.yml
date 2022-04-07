@@ -9,6 +9,9 @@ dist: bionic
 jobs:
   include:
     - dist: focal
+      python:
+        - "2.7"
+        - "3.10"
 cache: pip
 install:
   - .travis/setup.sh
