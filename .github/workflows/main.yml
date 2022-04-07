@@ -9,10 +9,10 @@ jobs:
       - uses: whywaita/setup-lxd@v1
         with:
           lxd_version: latest/stable
-      - name: Launch instance
-        run: lxc launch ubuntu:focal build-server
-      - name: Install molecule-lxd
-        run: pip install -U molecule-lxd
+      - uses: BSFishy/pip-action@v1
+        with:
+          packages: |
+            molecule-lxd
       - uses: gofrolist/molecule-action@v2
   release:
     needs:
