@@ -18,6 +18,7 @@ jobs:
             yamllint
             molecule
             molecule-lxd
+            pytest-testinfra
       - name: Run molecule
         run: molecule test
   release:
