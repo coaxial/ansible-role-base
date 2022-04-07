@@ -5,9 +5,9 @@ language: python
 python: "3.10"
 jobs:
   include:
-    - dist: focal
-    - dist: bionic
     - dist: xenial
+    - dist: bionic
+    - dist: focal
 cache: pip
 install:
   - pip install ansible
