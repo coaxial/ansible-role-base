@@ -4,4 +4,4 @@
   vars:
     - base__ssh_pubkey_path: "./files/id_rsa.pub"
   roles:
-    - name: ansible-role-base
+    - name: coaxial.base

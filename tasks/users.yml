@@ -4,13 +4,13 @@
     path: /etc/sudoers
     state: present
     regexp: '^{{ item }}\s'
-    line: '{{ item }} ALL=(ALL) NOPASSWD:ALL'
-    validate: 'visudo -cf %s'
+    line: "{{ item }} ALL=(ALL) NOPASSWD:ALL"
+    validate: "visudo -cf %s"
   with_items:
     - "{{ base__provisioning_username }}"
     - "{{ base__operator_username }}"
 
-- name: Create users and disable passwords
+- name: Create users and disable passwords  # noqa no-log-password
   user:
     name: "{{ item.username }}"
     password: "{{ item.password }}"
@@ -18,12 +18,12 @@
     state: present
   with_items:
     - username: root
-      password: '!!'
+      password: "!!"
     - username: "{{ base__operator_username }}"
       password: "{{ base__operator_password }}"
       shell: "{{ base__operator_shell }}"
     - username: "{{ base__provisioning_username }}"
-      password: '!!'
+      password: "!!"
 
 - name: Add public keys
   authorized_key:
