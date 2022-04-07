@@ -1,0 +1,14 @@
+---
+on: push
+
+jobs:
+  molecule:
+    runs-on:
+      - unbuntu-xenial
+      - unbuntu-bionic
+      - unbuntu-focal
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: "${{ github.repository }}"
+      - uses: gofrolist/molecule-action@v2
