@@ -2,11 +2,22 @@
 on: push
 
 jobs:
-  molecule:
-    runs-on:
-      - ubuntu-latest
+  test:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: whywaita/setup-lxd@v1
         with:
-          path: "${{ github.repository }}"
+          lxd_version: latest/stable
+      - name: Launch instance
+        run: lxc launch ubuntu:focal build-server
       - uses: gofrolist/molecule-action@v2
+  release:
+    needs:
+      - test
+    runs-on: ubuntu-latest
+    steps:
+      - name: galaxy
+        uses: robertdebock/galaxy-action@1.2.0
+        with:
+          galaxy_api_key: ${{ secrets.galaxy_api_key }}
