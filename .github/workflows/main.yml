@@ -12,7 +12,7 @@ jobs:
       - uses: BSFishy/pip-action@v1
         with:
           packages: |
-            ansible==2.12.4
+            ansible==5.6.0  # which is really 2.12.4
             ansible-lint==6.0.2
             flake8==3.9.2
             yamllint==1.26.1
