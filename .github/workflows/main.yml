@@ -19,7 +19,7 @@ jobs:
             yamllint==1.26.1
             molecule==3.6.1
             molecule-lxd
-            pytest-testinfra==6.2.4
+            pytest-testinfra==6.4.0
       - name: Run molecule
         run: molecule test
   release:
