@@ -16,6 +16,7 @@ jobs:
             molecule
             molecule-lxd
       - name: Run molecule
+        run: molecule test
   release:
     needs:
       - test
