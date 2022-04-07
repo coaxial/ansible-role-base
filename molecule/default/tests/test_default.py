@@ -61,10 +61,10 @@ def test_users(host):
 
     assert o.name == 'user'
     assert o.shell == '/bin/bash'
-    assert o.password == '!!'
+    assert o.password == '!'
     assert p.name == 'ansible'
     assert p.shell == '/bin/bash'
-    assert p.password == '!!'
+    assert p.password == '!'
 
 
 def test_ssh_key(host):
