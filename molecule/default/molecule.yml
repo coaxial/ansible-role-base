@@ -9,11 +9,11 @@ lint: |
   flake8
 platforms:
   - name: ubuntu-focal
-    alias: ubuntu/focal
+    alias: ubuntu-20.04/focal
   - name: ubuntu-bionic
-    alias: ubuntu/bionic
+    alias: ubuntu-18.04/bionic
   - name: ubuntu-xenial
-    alias: ubuntu/xenial
+    alias: ubuntu-16.04/xenial
 
 provisioner:
   name: ansible
