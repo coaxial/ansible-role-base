@@ -5,10 +5,13 @@ language: python
 jobs:
   include:
     - dist: focal
+      python:
+        - 2.7
+        - 3.10
     - dist: bionic
-python:
-  - 2.7
-  - 3.10
+      python:
+        - 2.7
+        - 3.10
 cache: pip
 install:
   - .travis/setup.sh
