@@ -2,18 +2,12 @@
 # opt into build config validation: https://docs.travis-ci.com/user/build-config-validation
 version: ~> 1.0
 language: python
+python: "3.10"
 jobs:
   include:
     - dist: focal
-      python: "2.7"
+    - dist: bionic
     - dist: xenial
-      python: "2.7"
-    - dist: bionic
-      python: "3.10"
-    - dist: focal
-      python: "3.10"
-    - dist: bionic
-      python: "3.6"
 cache: pip
 install:
   - pip install ansible
