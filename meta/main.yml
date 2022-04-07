@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  author: Coaxial
+  namespace: coaxial
   description: Opinionated base config for servers.
   company: 64b.it
   role_name: base
