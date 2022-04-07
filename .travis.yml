@@ -1,8 +1,11 @@
 ---
+# opt into build config validation: https://docs.travis-ci.com/user/build-config-validation
+version: ~> 1.0
 language: python
-dist:
-  - xenial
-  - bionic
+matrix:
+  include:
+    - dist: xenial
+    - dist: bionic
 python:
   - "2.7"
   - "3.10"
