@@ -12,8 +12,10 @@ jobs:
       - uses: BSFishy/pip-action@v1
         with:
           packages: |
+            ansible
+            molecule
             molecule-lxd
-      - uses: gofrolist/molecule-action@v2
+      - name: Run molecule
   release:
     needs:
       - test
