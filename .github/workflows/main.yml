@@ -4,9 +4,8 @@ on: push
 jobs:
   molecule:
     runs-on:
-      - unbuntu-xenial
-      - unbuntu-bionic
-      - unbuntu-focal
+      - unbuntu-20.04
+      - unbuntu-18.04
     steps:
       - uses: actions/checkout@v2
         with:
