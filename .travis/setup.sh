@@ -1,15 +1,12 @@
 #!/bin/sh
 sudo apt-get update
-# xenial ships LXD 2 LTS, backports ships 3 LTS
-sudo apt-get upgrade -t xenial-backports -y lxd lxd-client
+
+sudo snap install lxd --channel=4.0/stable
 
 sudo lxd --version
 # Wait for the socket to be ready
 sudo lxd waitready
 sudo lxd init --auto
-
-pip install ansible
-pip install molecule
 
 # Enable nesting without privileged containers,
 # cf. https://stgraber.org/2017/06/15/custom-user-mappings-in-lxd-containers/

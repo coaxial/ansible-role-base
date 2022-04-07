@@ -3,8 +3,7 @@ dependency:
   name: galaxy
 driver:
   name: lxd
-lint:
-  name: yamllint
+lint: yamllint
 platforms:
   - name: ubuntu-bionic
     alias: ubuntu/bionic

@@ -1,19 +1,24 @@
 ---
+# opt into build config validation: https://docs.travis-ci.com/user/build-config-validation
+version: ~> 1.0
+language: python
+python: "3.10"
 jobs:
   include:
-    - &test
-      stage: test
-      language: python
-      python: "2.7"
-      cache: pip
-      dist: xenial
-      sudo: required
-      install:
-        - .travis/setup.sh
-      script:
-        # the python venv needs to be in the path for molecule to run
-        # https://unix.stackexchange.com/questions/83191/how-to-make-sudo-preserve-path
-        - sudo env "PATH=$PATH" molecule test
+    - dist: xenial
+      python: "3.6" # https://docs.travis-ci.com/user/reference/xenial/#python-support
+    - dist: bionic
+    - dist: focal
+cache: pip
+install:
+  - pip install ansible
+  - pip install molecule
+  - pip install molecule-lxd
+  - .travis/setup.sh
+script:
+  # the python venv needs to be in the path for molecule to run
+  # https://unix.stackexchange.com/questions/83191/how-to-make-sudo-preserve-path
+  - sudo env "PATH=$PATH" molecule test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
