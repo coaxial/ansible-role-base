@@ -12,7 +12,7 @@ jobs:
       - name: Launch instance
         run: lxc launch ubuntu:focal build-server
       - name: Install molecule-lxd
-        run: pip install molecule-lxd
+        run: pip install -U molecule-lxd
       - uses: gofrolist/molecule-action@v2
   release:
     needs:
