@@ -4,8 +4,6 @@ version: ~> 1.0
 language: python
 jobs:
   include:
-    - dist: bionic
-      python: "2.7"
     - dist: focal
       python: "2.7"
     - dist: xenial
