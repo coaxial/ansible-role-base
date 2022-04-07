@@ -2,16 +2,16 @@
 dependency:
   name: galaxy
 driver:
-  name: lxd
+  name: docker
 lint: |
   yamllint .
   ansible-lint
   flake8
 platforms:
-  - name: ubuntu-bionic
+  - name: ubuntu1804
     alias: ubuntu/bionic
-  - name: ubuntu-xenial
-    alias: ubuntu/xenial
+  - name: ubuntu2004
+    alias: ubuntu/focal
 
 provisioner:
   name: ansible
