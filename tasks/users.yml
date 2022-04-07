@@ -1,6 +1,6 @@
 ---
 - name: Enable passwordless sudo
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/sudoers
     state: present
     regexp: '^{{ item }}\s'
@@ -11,7 +11,7 @@
     - "{{ base__operator_username }}"
 
 - name: Create users and disable passwords  # noqa no-log-password
-  user:
+  ansible.builtin.user:
     name: "{{ item.username }}"
     password: "{{ item.password }}"
     shell: "{{ item.shell | default('/bin/bash') }}"

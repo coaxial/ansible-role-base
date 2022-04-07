@@ -1,11 +1,11 @@
 ---
 - name: Ensure ssh server is present
-  package:
+  ansible.builtin.package:
     name: openssh-server
     state: present
 
 - name: Secure ssh server
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/ssh/sshd_config
     state: present
     regexp: "{{ item.regexp }}"
