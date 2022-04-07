@@ -1,8 +1,6 @@
 #!/bin/sh
 sudo apt-get update
 
-sudo snap install lxd --channel=4.0/stable
-
 sudo lxd --version
 # Wait for the socket to be ready
 sudo lxd waitready
