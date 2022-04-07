@@ -5,10 +5,11 @@ galaxy_info:
   company: 64b.it
   role_name: base
   license: MIT
-  min_ansible_version: 2.5
+  min_ansible_version: 2.12
   platforms:
     - name: ubuntu
       versions:
+        - focal
         - bionic
         - xenial
   galaxy_tags:
