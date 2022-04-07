@@ -7,7 +7,6 @@ matrix:
     - dist: xenial
     - dist: bionic
     - dist: focal
-jobs:
   exclude:
     - dist: xenial
       python: "3.10"
