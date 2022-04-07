@@ -4,9 +4,13 @@ jobs:
     - &test
       stage: test
       language: python
-      python: "2.7"
+      python:
+        - "2.7"
+        - "3.10"
       cache: pip
-      dist: xenial
+      dist:
+        - xenial
+        - bionic
       sudo: required
       install:
         - .travis/setup.sh
