@@ -1,16 +1,17 @@
 ---
 galaxy_info:
-  author: Coaxial
+  author: coaxial
+  namespace: coaxial
   description: Opinionated base config for servers.
   company: 64b.it
   role_name: base
   license: MIT
-  min_ansible_version: 2.5
+  min_ansible_version: 2.12
   platforms:
     - name: ubuntu
       versions:
+        - focal
         - bionic
-        - xenial
   galaxy_tags:
     - system
 

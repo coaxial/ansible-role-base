@@ -1,6 +1,6 @@
 ---
 - name: Ensure iptables is present
-  package:
+  ansible.builtin.package:
     name: "{{ item }}"
     state: present
   with_items:
@@ -8,7 +8,7 @@
     - iptables-persistent
 
 - name: Allow localhost traffic
-  iptables:
+  ansible.builtin.iptables:
     chain: INPUT
     in_interface: lo
     jump: ACCEPT
@@ -16,7 +16,7 @@
   notify: Persist iptables rules
 
 - name: Allow SSH
-  iptables:
+  ansible.builtin.iptables:
     chain: INPUT
     protocol: tcp
     destination_port: ssh
@@ -25,7 +25,7 @@
   notify: Persist iptables rules
 
 - name: Allow return traffic
-  iptables:
+  ansible.builtin.iptables:
     chain: INPUT
     ctstate:
       - RELATED
@@ -35,7 +35,7 @@
   notify: Persist iptables rules
 
 - name: Set default policy to DROP
-  iptables:
+  ansible.builtin.iptables:
     chain: "{{ item.chain }}"
     policy: "{{ item.policy }}"
   with_items:

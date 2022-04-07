@@ -1,4 +1,8 @@
+# vi: ft=yaml
+---
 extends: default
+ignore: |
+  .github/workflows/
 
 rules:
   braces:

@@ -1,20 +1,20 @@
 ---
 - name: Save iptables v4 rules
-  shell: iptables-save > /etc/iptables/rules.v4
+  ansible.builtin.shell: iptables-save > /etc/iptables/rules.v4
   listen: Persist iptables rules
 
 - name: Save iptables v6 rules
-  shell: ip6tables-save > /etc/iptables/rules.v6
+  ansible.builtin.shell: ip6tables-save > /etc/iptables/rules.v6
   listen: Persist iptables rules
 
 - name: Restart fail2ban
-  service:
+  ansible.builtin.service:
     name: fail2ban
     state: restarted
     enabled: true
 
 - name: Restart sshd
-  service:
+  ansible.builtin.service:
     name: sshd
     state: restarted
     enabled: true
