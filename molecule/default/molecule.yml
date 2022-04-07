@@ -8,6 +8,8 @@ lint: |
   ansible-lint
   flake8
 platforms:
+  - name: ubuntu-focal
+    alias: ubuntu/focal
   - name: ubuntu-bionic
     alias: ubuntu/bionic
   - name: ubuntu-xenial
