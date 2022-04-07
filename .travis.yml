@@ -6,7 +6,7 @@ python: "3.10"
 jobs:
   include:
     - dist: xenial
-      python: "3.5" # https://docs.travis-ci.com/user/reference/xenial/#python-support
+      python: "3.6" # https://docs.travis-ci.com/user/reference/xenial/#python-support
     - dist: bionic
     - dist: focal
 cache: pip
