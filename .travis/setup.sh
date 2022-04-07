@@ -6,9 +6,6 @@ sudo lxd --version
 sudo lxd waitready
 sudo lxd init --auto
 
-pip install ansible
-pip install molecule
-
 # Enable nesting without privileged containers,
 # cf. https://stgraber.org/2017/06/15/custom-user-mappings-in-lxd-containers/
 sudo sed -i 's/^\(lxd:[0-9]\{1,\}\):.*/\1:1000000000/' /etc/subuid

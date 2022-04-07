@@ -14,6 +14,9 @@ jobs:
       python: "3.10"
 cache: pip
 install:
+  - pip install ansible
+  - pip install molecule
+  - pip install molecule-lxd
   - .travis/setup.sh
 script:
   # the python venv needs to be in the path for molecule to run
