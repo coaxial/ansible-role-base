@@ -4,8 +4,7 @@ on: push
 jobs:
   molecule:
     runs-on:
-      - unbuntu-20.04
-      - unbuntu-18.04
+      - ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
