@@ -7,9 +7,11 @@ jobs:
   include:
     - dist: bionic
       python: "2.7"
-      python: "3.10"
     - dist: focal
       python: "2.7"
+    - dist: bionic
+      python: "3.10"
+    - dist: focal
       python: "3.10"
 cache: pip
 install:
