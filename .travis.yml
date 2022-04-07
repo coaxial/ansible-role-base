@@ -2,13 +2,13 @@
 # opt into build config validation: https://docs.travis-ci.com/user/build-config-validation
 version: ~> 1.0
 language: python
-dist: bionic
-matrix:
+jobs:
   include:
     - dist: focal
+    - dist: bionic
 python:
-  - "2.7"
-  - "3.10"
+  - 2.7
+  - 3.10
 cache: pip
 install:
   - .travis/setup.sh
