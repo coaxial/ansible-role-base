@@ -2,7 +2,6 @@
 # opt into build config validation: https://docs.travis-ci.com/user/build-config-validation
 version: ~> 1.0
 language: python
-dist: bionic
 jobs:
   include:
     - dist: bionic
