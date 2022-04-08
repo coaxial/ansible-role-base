@@ -22,6 +22,9 @@ jobs:
         run: >
           pip3 install ansible-core
 
+      - name: Show versions
+        run: ansible --version
+
       - name: Trigger Galaxy import
         run: >
           ansible-galaxy role import --api-key ${{ secrets.GALAXY_API_KEY }}
