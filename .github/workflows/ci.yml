@@ -31,8 +31,7 @@ jobs:
         run: molecule --version
 
       - name: Lint code
-        run: |
-          molecule lint
+        run: molecule lint
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
@@ -66,7 +65,7 @@ jobs:
           yamllint==1.26.1
 
       - name: Show versions
-        run: >
+        run: |
           molecule --version
           ansible --version
           flake8 --version
