@@ -4,6 +4,7 @@ dependency:
 driver:
   name: lxd
 lint: |
+  set -e
   yamllint .
   ansible-lint
   flake8

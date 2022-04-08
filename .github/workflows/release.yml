@@ -4,6 +4,9 @@ name: Release
   push:
     tags:
       - '*'
+env:
+  PY_COLORS: '1'
+  ANSIBLE_FORCE_COLOR: '1'
 
 jobs:
   release:
@@ -24,9 +27,6 @@ jobs:
 
       - name: Show versions
         run: ansible --version
-        env:
-          PY_COLORS: '1'
-          ANSIBLE_FORCE_COLOR: '1'
 
       - name: Trigger Galaxy import
         run: >
