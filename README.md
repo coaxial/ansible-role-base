@@ -1,6 +1,7 @@
 base
 =========
-  [![Build Status](https://travis-ci.org/coaxial/ansible-role-base.svg?branch=master)](https://travis-ci.org/coaxial/ansible-role-base)
+
+[![.github/workflows/ci.yml](https://github.com/coaxial/ansible-role-base/actions/workflows/ci.yml/badge.svg)](https://github.com/coaxial/ansible-role-base/actions/workflows/ci.yml)
 
 Opinionated base config for servers.
 
