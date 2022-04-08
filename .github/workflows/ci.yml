@@ -54,6 +54,6 @@ jobs:
 
       - name: Run molecule
         run: molecule test
-        end:
+        env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
