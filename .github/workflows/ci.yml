@@ -29,6 +29,9 @@ jobs:
       - name: Lint code
         run: |
           molecule lint
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
 
   test:
     name: Test
