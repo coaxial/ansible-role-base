@@ -28,13 +28,15 @@ jobs:
           yamllint==1.26.1
 
       - name: Show versions
-        run: molecule --version
+        run: |
+          molecule --version
+          ansible-lint --version
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
 
       - name: Lint code
-        run: molecule lint
+        run: ansible-lint .
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
