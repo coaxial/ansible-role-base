@@ -29,6 +29,9 @@ jobs:
 
       - name: Show versions
         run: molecule --version
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
 
       - name: Lint code
         run: molecule lint
@@ -71,6 +74,9 @@ jobs:
           flake8 --version
           yamllint --version
           pip show pytest-testinfra
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
 
       - name: Run molecule
         run: molecule test
