@@ -24,6 +24,7 @@ jobs:
           ansible-lint==6.0.2
           flake8==3.9.2
           molecule==3.6.1
+          molecule-lxd
           yamllint==1.26.1
 
       - name: Lint code
