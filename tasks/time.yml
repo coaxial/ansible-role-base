@@ -5,7 +5,7 @@
     state: present
 
 - name: Update timezone
-  ansible.builtin.timezone:
+  community.general.timezone:
     name: "{{ base__timezone }}"
 
 - name: Configure network time servers
