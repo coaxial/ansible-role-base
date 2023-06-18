@@ -4,9 +4,15 @@
     update_cache: true
     cache_valid_time: 216000  # seconds; i.e. 1 day
 
-- include: firewall.yml
-- include: sshd.yml
-- include: users.yml
-- include: unattended_upgrades.yml
-- include: time.yml
-- include: fail2ban.yml
+- name: Configure firewall
+  ansible.builtin.include_tasks: firewall.yml
+- name: Configure SSH
+  ansible.builtin.include_tasks: sshd.yml
+- name: Configure users
+  ansible.builtin.include_tasks: users.yml
+- name: Configure unattended_upgrades
+  ansible.builtin.include_tasks: unattended_upgrades.yml
+- name: Configure time
+  ansible.builtin.include_tasks: time.yml
+- name: Configure fail2ban
+  ansible.builtin.include_tasks: fail2ban.yml

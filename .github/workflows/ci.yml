@@ -15,38 +15,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout codebase
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Setup Python 3
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.x"
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint-action@v6
 
-      - name: Install lint dependencies
-        run: pip3 install -r requirements-lint.txt
+      - name: Install dependencies
+        run: pip3 install -r requirements.txt
 
-      - name: Show versions
-        run: |
-          molecule --version
-          ansible-lint --version
-
-      - name: Lint code
-        run: molecule lint
+      - name: Run flake8
+        run: flake8
 
   test:
     name: Test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distro:
+          - ubuntu1804
+          - ubuntu2004
     steps:
       - name: Checkout codebase
-        uses: actions/checkout@v2
-
-      - name: Install LXD
-        uses: whywaita/setup-lxd@v1
-        with:
-          lxd_version: latest/stable
+        uses: actions/checkout@v3
 
       - name: Setup Python 3
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: "3.x"
 
@@ -57,9 +50,11 @@ jobs:
         run: |
           molecule --version
           ansible --version
-          flake8 --version
           yamllint --version
+          flake8 --version
           pip show pytest-testinfra
 
       - name: Run molecule
         run: molecule test
+        env:
+          MOLECULE_DISTRO: ${{ matrix.distro }}
