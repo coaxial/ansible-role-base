@@ -34,6 +34,8 @@ jobs:
         distro:
           - ubuntu1804
           - ubuntu2004
+          - debian11
+          - debian12
     steps:
       - name: Checkout codebase
         uses: actions/checkout@v3
