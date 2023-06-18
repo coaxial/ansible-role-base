@@ -2,7 +2,7 @@
 - name: Converge
   hosts: all
   vars:
-    - base__ssh_pubkey_path: "./files/id_rsa.pub"
+    base__ssh_pubkey_path: "./files/id_rsa.pub"
   tasks:
     - name: "Include coaxial.base"
       ansible.builtin.include_role:
