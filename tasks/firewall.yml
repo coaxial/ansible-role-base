@@ -19,7 +19,7 @@
   ansible.builtin.iptables:
     chain: INPUT
     protocol: tcp
-    destination_port: ssh
+    destination_port: 22
     jump: ACCEPT
     comment: Allow SSH traffic
   notify: Persist iptables rules
