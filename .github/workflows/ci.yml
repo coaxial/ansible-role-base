@@ -32,7 +32,7 @@ jobs:
     strategy:
       matrix:
         distro:
-          - ubuntu1204
+          - ubuntu2204
           - ubuntu2404
           - debian13
     steps:
