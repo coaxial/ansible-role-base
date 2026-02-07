@@ -21,7 +21,7 @@
   community.general.ufw:
     direction: "{{ item.direction }}"
     policy: "{{ item.policy }}"
-  with_items:
+  loop:
     - direction: incoming
       policy: deny
     - direction: outgoing

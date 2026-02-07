@@ -1,13 +1,13 @@
 ---
+- name: Set unattended upgrades packages list
+  ansible.builtin.set_fact:
+    unattended_packages: "{{ ['unattended-upgrades'] + (['update-notifier-common'] if ansible_distribution == 'Ubuntu' else []) }}"
+
 - name: Install unattended-upgrades
   ansible.builtin.package:
     name: "{{ item }}"
     state: present
-  with_items:
-    - unattended-upgrades
-    {% if ansible_distribution == 'Ubuntu' -%}
-    - update-notifier-common
-    {% endif %}
+  loop: "{{ unattended_packages }}"
 
 - name: Enable unattended upgrades
   ansible.builtin.copy:
@@ -16,8 +16,6 @@
     owner: root
     group: root
     mode: 0o644
-  with_items:
-    # no hyphen between number and filename because that's how the rest of the
-    # files in /etc/apt/apt.conf.d/ are named
+  loop:
     - 20auto-upgrades
     - 50unattended-upgrades
