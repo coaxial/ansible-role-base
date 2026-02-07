@@ -6,3 +6,8 @@
       ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 86400  # 24h
+
+    - name: Ensure UFW is installed for firewall tests
+      ansible.builtin.package:
+        name: ufw
+        state: present

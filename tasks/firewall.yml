@@ -1,48 +1,34 @@
 ---
-- name: Ensure iptables is present
+- name: Ensure UFW is present
   ansible.builtin.package:
-    name: "{{ item }}"
+    name: ufw
     state: present
-  with_items:
-    - iptables
-    - iptables-persistent
 
 - name: Allow localhost traffic
-  ansible.builtin.iptables:
-    chain: INPUT
-    in_interface: lo
-    jump: ACCEPT
+  community.general.ufw:
+    rule: allow
+    from_ip: 127.0.0.0/8
     comment: Allow loopback traffic
-  notify: Persist iptables rules
 
 - name: Allow SSH
-  ansible.builtin.iptables:
-    chain: INPUT
-    protocol: tcp
-    destination_port: 22
-    jump: ACCEPT
+  community.general.ufw:
+    rule: allow
+    port: 22
+    proto: tcp
     comment: Allow SSH traffic
-  notify: Persist iptables rules
 
-- name: Allow return traffic
-  ansible.builtin.iptables:
-    chain: INPUT
-    ctstate:
-      - RELATED
-      - ESTABLISHED
-    jump: ACCEPT
-    comment: Allow return traffic
-  notify: Persist iptables rules
-
-- name: Set default policy to DROP
-  ansible.builtin.iptables:
-    chain: "{{ item.chain }}"
+- name: Set default policies
+  community.general.ufw:
+    direction: "{{ item.direction }}"
     policy: "{{ item.policy }}"
   with_items:
-    - chain: INPUT
-      policy: DROP
-    - chain: FORWARD
-      policy: DROP
-    - chain: OUTPUT
-      policy: ACCEPT
-  notify: Persist iptables rules
+    - direction: incoming
+      policy: deny
+    - direction: outgoing
+      policy: allow
+    - direction: routed
+      policy: deny
+
+- name: Enable UFW
+  community.general.ufw:
+    state: enabled

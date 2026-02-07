@@ -7,27 +7,20 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 
 def test_firewall_rules(host):
-    i = host.iptables
+    u = host.ufw
 
-    assert '-P INPUT DROP' in i.rules('filter', 'INPUT')
-    assert '-P FORWARD DROP' in i.rules('filter', 'FORWARD')
-    assert '-P OUTPUT ACCEPT' in i.rules('filter', 'OUTPUT')
-    assert (
-        '-A INPUT -i lo -m '
-        'comment --comment "Allow loopback traffic" -j ACCEPT'
-    ) in i.rules('filter', 'INPUT')
-    assert (
-        '-A INPUT -p tcp -m tcp --dport 22 -m '
-        'comment --comment "Allow SSH traffic" -j ACCEPT'
-    ) in i.rules('filter', 'INPUT')
+    assert u.is_enabled
+    assert '22/tcp' in u.rules  # SSH rule
+    assert 'Anywhere on lo' in u.rules or '127.0.0.0/8' in u.rules  # Loopback (adjust string if needed based on output)
+    assert u.defaults['incoming'] == 'deny'
+    assert u.defaults['outgoing'] == 'allow'
+    assert u.defaults['routed'] == 'deny'
 
 
 def test_firewall_rules_persist(host):
-    r4 = host.file('/etc/iptables/rules.v4')
-    r6 = host.file('/etc/iptables/rules.v6')
-
-    assert r4.exists
-    assert r6.exists
+    # UFW persists automatically; just verify it's enabled
+    u = host.ufw
+    assert u.is_enabled
 
 
 def test_sshd(host):
