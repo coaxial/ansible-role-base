@@ -42,7 +42,7 @@ jobs:
       - name: Setup Python 3
         uses: actions/setup-python@v6
         with:
-          python-version: "3"
+          python-version: "3.13"
 
       - name: Install dependencies
         run: pip3 install -r requirements.txt
