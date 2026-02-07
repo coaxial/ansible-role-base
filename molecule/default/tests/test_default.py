@@ -7,20 +7,24 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 
 def test_firewall_rules(host):
-    u = host.ufw
+    ufw_status = host.command("ufw status").stdout
 
-    assert u.is_enabled
-    assert '22/tcp' in u.rules  # SSH rule
-    assert ('Anywhere on lo' in u.rules or
-            '127.0.0.0/8' in u.rules)
-    assert u.defaults['incoming'] == 'deny'
-    assert u.defaults['outgoing'] == 'allow'
-    assert u.defaults['routed'] == 'deny'
+    assert "Status: active" in ufw_status
+    assert "22/tcp" in ufw_status  # SSH rule
+    assert ("Anywhere on lo" in ufw_status or
+            "127.0.0.0/8" in ufw_status)
+    # Check defaults via /etc/default/ufw (not shown in 'ufw status')
+    defaults_file = host.file('/etc/default/ufw')
+    assert defaults_file.contains('DEFAULT_INPUT_POLICY="DROP"')
+    assert defaults_file.contains('DEFAULT_OUTPUT_POLICY="ACCEPT"')
+    assert defaults_file.contains('DEFAULT_FORWARD_POLICY="DROP"')
 
 
 def test_firewall_rules_persist(host):
-    u = host.ufw
-    assert u.is_enabled
+    # Reload UFW to simulate persistence (e.g., after config changes)
+    host.command("ufw reload")
+    ufw_status = host.command("ufw status").stdout
+    assert "Status: active" in ufw_status
 
 
 def test_sshd(host):
