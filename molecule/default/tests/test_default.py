@@ -11,14 +11,13 @@ def test_firewall_rules(host):
 
     assert u.is_enabled
     assert '22/tcp' in u.rules  # SSH rule
-    assert 'Anywhere on lo' in u.rules or '127.0.0.0/8' in u.rules  # Loopback (adjust string if needed based on output)
+    assert 'Anywhere on lo' in u.rules or '127.0.0.0/8' in u.rules
     assert u.defaults['incoming'] == 'deny'
     assert u.defaults['outgoing'] == 'allow'
     assert u.defaults['routed'] == 'deny'
 
 
 def test_firewall_rules_persist(host):
-    # UFW persists automatically; just verify it's enabled
     u = host.ufw
     assert u.is_enabled
 
