@@ -24,7 +24,7 @@ def test_firewall_rules_persist(host):
 
 
 def test_sshd(host):
-    is_debian_based = (host.system_info.distribution.lower() 
+    is_debian_based = (host.system_info.distribution.lower()
                        in ['ubuntu', 'debian'])
     service_name = 'ssh' if is_debian_based else 'sshd'
     s = host.service(service_name)
