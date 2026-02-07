@@ -5,7 +5,9 @@
     state: present
   with_items:
     - unattended-upgrades
+    {% if ansible_distribution == 'Ubuntu' -%}
     - update-notifier-common
+    {% endif %}
 
 - name: Enable unattended upgrades
   ansible.builtin.copy:
