@@ -23,7 +23,9 @@ def test_firewall_rules_persist(host):
 
 
 def test_sshd(host):
-    s = host.service('sshd')
+    # Determine service name based on OS (mirrors the role's logic)
+    service_name = 'ssh' if host.system_info.distribution.lower() in ['ubuntu', 'debian'] else 'sshd'
+    s = host.service(service_name)
 
     assert s.is_running
     assert s.is_enabled
