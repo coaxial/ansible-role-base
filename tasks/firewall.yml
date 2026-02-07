@@ -21,15 +21,13 @@
   community.general.ufw:
     direction: "{{ item.direction }}"
     policy: "{{ item.policy }}"
-  vars:
-    ufw_policies:
-      - direction: incoming
-        policy: deny
-      - direction: outgoing
-        policy: allow
-      - direction: routed
-        policy: deny
-  loop: "{{ ufw_policies }}"
+  loop:
+    - direction: incoming
+      policy: deny
+    - direction: outgoing
+      policy: allow
+    - direction: routed
+      policy: deny
 
 - name: Enable UFW
   community.general.ufw:
