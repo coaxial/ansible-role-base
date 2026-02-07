@@ -4,8 +4,16 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: ${MOLECULE_DISTRO:-ubuntu2004}
-    image: geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu2004}-ansible:latest
+  - name: ${MOLECULE_DISTRO:-ubuntu2204}
+    image: geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu2204}-ansible:latest
+    cgroupns_mode: host
+    command: ""
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    privileged: true
+    pre_build_image: true
+  - name: debian13
+    image: geerlingguy/docker-debian13-ansible:latest  # Use 'debian:unstable' if this image doesn't exist
     cgroupns_mode: host
     command: ""
     volumes:
