@@ -1,4 +1,27 @@
 ---
+- name: Check apt sources
+  ansible.builtin.command: cat /etc/apt/sources.list
+  register: sources
+- name: Debug sources
+  ansible.builtin.debug:
+    msg: "{{ sources.stdout }}"
+
+- name: Check if UFW is available in apt cache
+  ansible.builtin.command: apt-cache policy ufw
+  register: ufw_policy
+  become: true
+  ignore_errors: true
+
+- name: Debug UFW availability
+  ansible.builtin.debug:
+    msg: "UFW policy: {{ ufw_policy.stdout | default('Not found') }}"
+
+- name: Ensure UFW is present
+  ansible.builtin.apt:
+    name: ufw
+    state: present
+    force: yes # Forces install even if cache seems stale
+  become: true
 - name: Ensure UFW is present
   ansible.builtin.apt:
     name: ufw
