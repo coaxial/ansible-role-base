@@ -17,17 +17,20 @@
     proto: tcp
     comment: Allow SSH traffic
 
-- name: Set default policies
+- name: Set incoming default policy to deny
   community.general.ufw:
-    direction: "{{ item.direction }}"
-    policy: "{{ item.policy }}"
-  loop:
-    - direction: incoming
-      policy: deny
-    - direction: outgoing
-      policy: allow
-    - direction: routed
-      policy: deny
+    direction: incoming
+    policy: deny
+
+- name: Set outgoing default policy to allow
+  community.general.ufw:
+    direction: outgoing
+    policy: allow
+
+- name: Set routed default policy to deny
+  community.general.ufw:
+    direction: routed
+    policy: deny
 
 - name: Enable UFW
   community.general.ufw:
