@@ -1,3 +1,4 @@
 *.pyc
 *.log
 .yo-rc.json
+.ansible/
