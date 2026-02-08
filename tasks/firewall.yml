@@ -2,7 +2,9 @@
 # yamllint disable
 - name: Check apt sources
   ansible.builtin.command: cat /etc/apt/sources.list
+  changed_when: false
   register: sources
+
 - name: Debug sources
   ansible.builtin.debug:
     msg: "{{ sources.stdout }}"
@@ -12,6 +14,7 @@
   register: ufw_policy
   become: true
   ignore_errors: true
+  changed_when: false
 
 - name: Debug UFW availability
   ansible.builtin.debug:

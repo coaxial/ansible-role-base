@@ -9,7 +9,8 @@
       ansible.builtin.command: ls -la /etc/apt/sources.list.d/
       register: sources_d
       become: true
-      ignore_errors: yes
+      ignore_errors: true
+      changed_when: false
 
     - name: Create basic apt sources if missing
       ansible.builtin.copy:
