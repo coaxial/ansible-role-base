@@ -19,13 +19,7 @@
 # yamllint enable
 
 - name: Ensure UFW is present
-  ansible.builtin.apt:
-    name: ufw
-    state: present
-    force: yes # Forces install even if cache seems stale
-  become: true
-- name: Ensure UFW is present
-  ansible.builtin.apt:
+  ansible.builtin.package:
     name: ufw
     state: present
 
