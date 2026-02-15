@@ -6,12 +6,15 @@ galaxy_info:
   company: 64b.it
   role_name: base
   license: MIT
-  min_ansible_version: "2.13"
+  min_ansible_version: "2.20"
   platforms:
     - name: Ubuntu
       versions:
-        - focal
-        - bionic
+        - jammy
+        - noble
+    - name: Debian
+      versions:
+        - trixie
   galaxy_tags:
     - system
 dependencies: []
