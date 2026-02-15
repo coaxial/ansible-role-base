@@ -46,7 +46,7 @@ def test_sshd_config(host):
     assert 'PermitRootLogin no' in f.content_string
     assert 'PasswordAuthentication no' in f.content_string
 
-    expected_allow_users = (f'AllowUsers ansible user')
+    expected_allow_users = 'AllowUsers ansible user'
     assert expected_allow_users in f.content_string
 
 
