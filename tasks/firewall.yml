@@ -1,26 +1,4 @@
 ---
-# yamllint disable
-- name: Check apt sources
-  ansible.builtin.command: cat /etc/apt/sources.list
-  changed_when: false
-  register: sources
-
-- name: Debug sources
-  ansible.builtin.debug:
-    msg: "{{ sources.stdout }}"
-
-- name: Check if UFW is available in apt cache
-  ansible.builtin.command: apt-cache policy ufw
-  register: ufw_policy
-  become: true
-  ignore_errors: true
-  changed_when: false
-
-- name: Debug UFW availability
-  ansible.builtin.debug:
-    msg: "UFW policy: {{ ufw_policy.stdout | default('Not found') }}"
-# yamllint enable
-
 - name: Ensure UFW is present
   ansible.builtin.package:
     name: ufw

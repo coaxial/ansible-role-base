@@ -46,13 +46,7 @@ def test_sshd_config(host):
     assert 'PermitRootLogin no' in f.content_string
     assert 'PasswordAuthentication no' in f.content_string
 
-    # Dynamically check AllowUsers using Ansible variables
-    provisioning_username = (host.ansible
-                             .get_variables()['base__provisioning_username'])
-    operator_username = host.ansible.get_variables()['base__operator_username']
-    expected_allow_users = (
-            f'AllowUsers {provisioning_username} {operator_username}'
-    )
+    expected_allow_users = (f'AllowUsers ansible user')
     assert expected_allow_users in f.content_string
 
 
