@@ -4,11 +4,17 @@
     name: ufw
     state: present
 
-- name: Allow localhost traffic
+- name: Allow localhost IPv4 traffic
   community.general.ufw:
     rule: allow
     from_ip: 127.0.0.0/8
-    comment: Allow loopback traffic
+    comment: Allow loopback IPv4 traffic
+
+- name: Allow IPv6 localhost traffic
+  community.general.ufw:
+    rule: allow
+    from_ip: ::1/128
+    comment: Allow loopback IPv6 traffic
 
 - name: Allow SSH
   community.general.ufw:
