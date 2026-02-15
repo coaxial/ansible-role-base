@@ -2,29 +2,6 @@
 - name: Prepare
   hosts: all
   tasks:
-    # Ansible is amazing and the package or apt modules won't run if there is
-    # no /etc/apt/sources.list file (as is the case in the debian13 molecule
-    # container). So we have to workaround that and create it ourselves.
-    - name: Check apt sources (list.d directory)
-      ansible.builtin.command: ls -la /etc/apt/sources.list.d/
-      register: sources_d
-      become: true
-      ignore_errors: true
-      changed_when: false
-
-    - name: Create basic apt sources if missing
-      ansible.builtin.copy:
-        dest: /etc/apt/sources.list
-        content: |
-          deb http://deb.debian.org/debian trixie main
-          deb http://deb.debian.org/debian trixie-updates main
-          deb http://deb.debian.org/debian-security trixie-security main
-        owner: root
-        group: root
-        mode: "0644"
-      become: true
-      when: sources_d.rc != 0 # Only if list.d check failed
-
     - name: "Update apt cache"
       ansible.builtin.apt:
         update_cache: true
