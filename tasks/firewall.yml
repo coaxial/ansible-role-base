@@ -12,16 +12,22 @@
     name: ufw
     state: present
 
+# Not strictly required as it's the default but it's more explicit and *could*
+    # fix broken state
 - name: Allow localhost IPv4 traffic
   community.general.ufw:
     rule: allow
     from_ip: 127.0.0.0/8
+    to_ip: 127.0.0.0/8
     comment: Allow loopback IPv4 traffic
 
+# Not strictly required as it's the default but it's more explicit and *could*
+    # fix broken state
 - name: Allow IPv6 localhost traffic
   community.general.ufw:
     rule: allow
     from_ip: ::1/128
+    to_ip: ::1/128
     comment: Allow loopback IPv6 traffic
 
 - name: Allow SSH
