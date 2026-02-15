@@ -28,6 +28,7 @@ jobs:
       - name: Show versions
         run: ansible --version
 
+      # yamllint disable rule:line-length
       - name: Trigger Galaxy import
         run: |
           set -e
@@ -36,3 +37,4 @@ jobs:
           --role-name $(echo ${{ github.repository }} | cut -d/ -f2 | cut -d- -f3) \
           $(echo ${{ github.repository }} | cut -d/ -f1) \
           $(echo ${{ github.repository }} | cut -d/ -f2)
+      # yamllint enable rule:line-length
