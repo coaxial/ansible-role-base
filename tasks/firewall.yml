@@ -1,4 +1,12 @@
 ---
+# To make sure we're not locking ourselves out if the role fails partway
+# through
+- name: Disable UFW
+  community.general.ufw:
+    state: disabled
+  # Don't break idempotence
+  changed_when: false
+
 - name: Ensure UFW is present
   ansible.builtin.package:
     name: ufw
@@ -41,3 +49,5 @@
 - name: Enable UFW
   community.general.ufw:
     state: enabled
+  # Don't break idempotence
+  changed_when: false
