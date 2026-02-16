@@ -1,10 +1,7 @@
 ---
 - name: Set unattended upgrades packages list
   ansible.builtin.set_fact:
-    unattended_packages: >-
-      {{ ['unattended-upgrades'] +
-      (['update-notifier-common'] if ansible_distribution == 'Ubuntu'
-      else []) }}
+    unattended_packages: "{{ unattended_packages_map.get(ansible_distribution, []) }}"
 
 - name: Install unattended-upgrades
   ansible.builtin.package:
