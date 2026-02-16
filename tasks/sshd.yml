@@ -10,12 +10,13 @@
     state: present
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
-  with_items:
-    - regexp: '^PermitRootLogin'
-      line: 'PermitRootLogin no'
-    - regexp: '^PasswordAuthentication'
-      line: 'PasswordAuthentication no'
-    - regexp: '^AllowUsers'
-      line: 'AllowUsers {{ base__provisioning_username }} {{ base__operator_username }}'
+  loop:
+    - regexp: "^PermitRootLogin"
+      line: "PermitRootLogin no"
+    - regexp: "^PasswordAuthentication"
+      line: "PasswordAuthentication no"
+    - regexp: "^AllowUsers"
+      # yamllint disable-line rule:line-length
+      line: "AllowUsers {{ base__provisioning_username }} {{ base__operator_username }}"
   notify:
     - Restart sshd

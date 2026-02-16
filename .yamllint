@@ -1,14 +1,12 @@
 # vi: ft=yaml
 ---
 extends: default
-ignore: |
-  .github/workflows/
-
 rules:
   braces:
     max-spaces-inside: 1
-    level: error
-  brackets:
-    max-spaces-inside: 1
-    level: error
-  line-length: disable
+  comments:
+    min-spaces-from-content: 1
+  comments-indentation: false
+  octal-values:
+    forbid-implicit-octal: true
+    forbid-explicit-octal: true

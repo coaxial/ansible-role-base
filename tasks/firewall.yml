@@ -1,48 +1,59 @@
 ---
-- name: Ensure iptables is present
+- name: Ensure UFW is present
   ansible.builtin.package:
-    name: "{{ item }}"
+    name: ufw
     state: present
-  with_items:
-    - iptables
-    - iptables-persistent
 
-- name: Allow localhost traffic
-  ansible.builtin.iptables:
-    chain: INPUT
-    in_interface: lo
-    jump: ACCEPT
-    comment: Allow loopback traffic
-  notify: Persist iptables rules
+# To make sure we're not locking ourselves out if the role fails partway
+# through
+- name: Disable UFW
+  community.general.ufw:
+    state: disabled
+  # Don't break idempotence
+  changed_when: false
+
+# Not strictly required as it's the default but it's more explicit and *could*
+    # fix broken state
+- name: Allow localhost IPv4 traffic
+  community.general.ufw:
+    rule: allow
+    from_ip: 127.0.0.0/8
+    to_ip: 127.0.0.0/8
+    comment: Allow loopback IPv4 traffic
+
+# Not strictly required as it's the default but it's more explicit and *could*
+    # fix broken state
+- name: Allow IPv6 localhost traffic
+  community.general.ufw:
+    rule: allow
+    from_ip: ::1/128
+    to_ip: ::1/128
+    comment: Allow loopback IPv6 traffic
 
 - name: Allow SSH
-  ansible.builtin.iptables:
-    chain: INPUT
-    protocol: tcp
-    destination_port: 22
-    jump: ACCEPT
+  community.general.ufw:
+    rule: allow
+    port: 22
+    proto: tcp
     comment: Allow SSH traffic
-  notify: Persist iptables rules
 
-- name: Allow return traffic
-  ansible.builtin.iptables:
-    chain: INPUT
-    ctstate:
-      - RELATED
-      - ESTABLISHED
-    jump: ACCEPT
-    comment: Allow return traffic
-  notify: Persist iptables rules
+- name: Set incoming default policy to deny
+  community.general.ufw:
+    direction: incoming
+    policy: deny
 
-- name: Set default policy to DROP
-  ansible.builtin.iptables:
-    chain: "{{ item.chain }}"
-    policy: "{{ item.policy }}"
-  with_items:
-    - chain: INPUT
-      policy: DROP
-    - chain: FORWARD
-      policy: DROP
-    - chain: OUTPUT
-      policy: ACCEPT
-  notify: Persist iptables rules
+- name: Set outgoing default policy to allow
+  community.general.ufw:
+    direction: outgoing
+    policy: allow
+
+- name: Set routed default policy to deny
+  community.general.ufw:
+    direction: routed
+    policy: deny
+
+- name: Enable UFW
+  community.general.ufw:
+    state: enabled
+  # Don't break idempotence
+  changed_when: false

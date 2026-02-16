@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout codebase
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Run ansible-lint
-        uses: ansible/ansible-lint-action@v6
+        uses: ansible/ansible-lint@v26
 
       - name: Install dependencies
         run: pip3 install -r requirements.txt
@@ -32,14 +32,15 @@ jobs:
     strategy:
       matrix:
         distro:
-          - ubuntu1804
-          - ubuntu2004
+          - ubuntu2204
+          - ubuntu2404
+          - debian13
     steps:
       - name: Checkout codebase
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Setup Python 3
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v6
         with:
           python-version: "3.x"
 

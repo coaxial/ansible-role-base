@@ -1,2 +1,9 @@
 ---
 # vars file for ansible-role-base
+ssh_service_name: "{{ 'ssh' if ansible_os_family == 'Debian' else 'sshd' }}"
+unattended_packages_map:
+  Debian:
+    - unattended-upgrades
+  Ubuntu:
+    - unattended-upgrades
+    - update-notifier-common

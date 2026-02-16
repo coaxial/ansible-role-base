@@ -7,31 +7,31 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 
 def test_firewall_rules(host):
-    i = host.iptables
+    ufw_status = host.command("ufw status").stdout
 
-    assert '-P INPUT DROP' in i.rules('filter', 'INPUT')
-    assert '-P FORWARD DROP' in i.rules('filter', 'FORWARD')
-    assert '-P OUTPUT ACCEPT' in i.rules('filter', 'OUTPUT')
-    assert (
-        '-A INPUT -i lo -m '
-        'comment --comment "Allow loopback traffic" -j ACCEPT'
-    ) in i.rules('filter', 'INPUT')
-    assert (
-        '-A INPUT -p tcp -m tcp --dport 22 -m '
-        'comment --comment "Allow SSH traffic" -j ACCEPT'
-    ) in i.rules('filter', 'INPUT')
+    assert "Status: active" in ufw_status
+    assert "22/tcp" in ufw_status  # SSH rule
+    assert ("Anywhere on lo" in ufw_status or
+            "127.0.0.0/8" in ufw_status)
+    # Check defaults via /etc/default/ufw (not shown in 'ufw status')
+    defaults_file = host.file('/etc/default/ufw')
+    assert defaults_file.contains('DEFAULT_INPUT_POLICY="DROP"')
+    assert defaults_file.contains('DEFAULT_OUTPUT_POLICY="ACCEPT"')
+    assert defaults_file.contains('DEFAULT_FORWARD_POLICY="DROP"')
 
 
 def test_firewall_rules_persist(host):
-    r4 = host.file('/etc/iptables/rules.v4')
-    r6 = host.file('/etc/iptables/rules.v6')
-
-    assert r4.exists
-    assert r6.exists
+    # Reload UFW to simulate persistence (e.g., after config changes)
+    host.command("ufw reload")
+    ufw_status = host.command("ufw status").stdout
+    assert "Status: active" in ufw_status
 
 
 def test_sshd(host):
-    s = host.service('sshd')
+    is_debian_based = (host.system_info.distribution.lower()
+                       in ['ubuntu', 'debian'])
+    service_name = 'ssh' if is_debian_based else 'sshd'
+    s = host.service(service_name)
 
     assert s.is_running
     assert s.is_enabled
@@ -45,7 +45,9 @@ def test_sshd_config(host):
     assert f.mode == 0o644
     assert 'PermitRootLogin no' in f.content_string
     assert 'PasswordAuthentication no' in f.content_string
-    assert 'AllowUsers ansible user' in f.content_string
+
+    expected_allow_users = 'AllowUsers ansible user'
+    assert expected_allow_users in f.content_string
 
 
 def test_sudo(host):
